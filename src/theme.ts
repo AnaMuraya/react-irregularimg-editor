@@ -207,6 +207,13 @@ export const DEFAULT_STYLESHEET = `
 }
 .irr-canvas { display: block; }
 .irr-overlay { position: absolute; inset: 0; touch-action: none; }
+.irr-handle { transition: stroke-width .1s ease; }
+.irr-handle:focus { outline: none; }
+.irr-handle:focus-visible {
+  outline: none;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 3px var(--irr-accent));
+}
 .irr-hint {
   position: absolute;
   inset: 0;

@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { pointsToPath, simplify } from '../geometry'
 import { presetPoints } from '../shapes'
@@ -219,6 +221,23 @@ export function useEditor(opts: UseEditorOptions) {
     )
   }, [])
 
+  /** Nudge a vertex by (dx, dy) pixels, clamped to the frame. Keyboard editing. */
+  const movePoint = useCallback(
+    (index: number, dx: number, dy: number) => {
+      setPoints((prev) => {
+        const p = prev[index]
+        if (!p) return prev
+        const next = prev.slice()
+        next[index] = {
+          x: clamp(p.x + dx, 0, width),
+          y: clamp(p.y + dy, 0, height),
+        }
+        return next
+      })
+    },
+    [width, height]
+  )
+
   // --- Actions --------------------------------------------------------------
   const setMode = useCallback(
     (next: EditMode) => {
@@ -301,6 +320,7 @@ export function useEditor(opts: UseEditorOptions) {
     endDrag,
     onVertexPointerDown,
     removeVertex,
+    movePoint,
     // actions
     setMode,
     setShape,
@@ -313,6 +333,10 @@ export function useEditor(opts: UseEditorOptions) {
     download,
     getState,
   }
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value))
 }
 
 export type EditorEngine = ReturnType<typeof useEditor>

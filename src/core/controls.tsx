@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { makeParts } from '../theme'
 import { EditorEngine } from './useEditor'
@@ -19,7 +21,13 @@ export function ToolButton(props: {
     primary ? 'primaryButton' : undefined,
   ])
   return (
-    <button type="button" title={title} onClick={onClick} {...p}>
+    <button
+      type="button"
+      title={title}
+      onClick={onClick}
+      aria-pressed={active === undefined ? undefined : active}
+      {...p}
+    >
       {children}
     </button>
   )
