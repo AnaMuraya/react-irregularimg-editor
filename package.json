@@ -93,7 +93,7 @@
     "ui"
   ],
   "author": "A.M",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AnaMuraya/react-irregularimg-editor/issues"
   },

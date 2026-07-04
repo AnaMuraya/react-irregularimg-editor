@@ -356,4 +356,4 @@ python3 -m http.server 8752 --directory demo    # then open http://localhost:875
 
 ## License
 
-ISC
+[MIT](./LICENSE) © Ana Muraya
