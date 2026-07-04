@@ -15,16 +15,32 @@ export interface SceneOptions {
 
 /**
  * The single source of truth for what a crop looks like. Used both for the
- * live on-screen canvas and for the high-resolution export canvas, so the
- * preview and the exported PNG are always pixel-identical.
+ * live on-screen canvas and for the high-resolution export canvas.
+ *
+ * When `preview` is true (the on-screen editor), the whole image is drawn dimmed
+ * behind the mask so the user can see what they are cropping — even before the
+ * outline is complete. The export path passes `preview = false`, so the exported
+ * PNG contains only the masked region and is pixel-identical to the bright part
+ * of the preview.
  */
 export function drawScene(
   ctx: CanvasRenderingContext2D,
   opts: SceneOptions,
-  scale: number
+  scale: number,
+  preview = false
 ): void {
   const { img, points, transform, vw, vh, backgroundColor } = opts
+  const hasImage = !!img && img.naturalWidth > 0
   ctx.clearRect(0, 0, vw * scale, vh * scale)
+
+  // Dimmed backdrop so the source image is visible while masking (preview only).
+  if (preview && hasImage) {
+    ctx.save()
+    ctx.globalAlpha = 0.35
+    drawImageTransformed(ctx, img!, transform, vw, vh, scale)
+    ctx.restore()
+  }
+
   if (points.length < 3) return
 
   ctx.save()
@@ -37,8 +53,8 @@ export function drawScene(
     ctx.fillRect(0, 0, vw * scale, vh * scale)
   }
 
-  if (img && img.naturalWidth > 0) {
-    drawImageTransformed(ctx, img, transform, vw, vh, scale)
+  if (hasImage) {
+    drawImageTransformed(ctx, img!, transform, vw, vh, scale)
   }
   ctx.restore()
 }

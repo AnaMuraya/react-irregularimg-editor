@@ -66,6 +66,27 @@ describe('drawScene', () => {
     drawScene(ctx, opts({ img: null }), 1)
     expect(ctx.drawImage).not.toHaveBeenCalled()
   })
+
+  it('draws a dimmed backdrop in preview mode before the mask is complete', () => {
+    const ctx = mockCtx()
+    drawScene(ctx, opts({ points: [{ x: 0, y: 0 }] }), 1, true)
+    // backdrop image is drawn even though there is no valid mask yet
+    expect(ctx.drawImage).toHaveBeenCalledOnce()
+    expect(ctx.clip).not.toHaveBeenCalled()
+  })
+
+  it('does NOT draw a backdrop in export mode (preview=false)', () => {
+    const ctx = mockCtx()
+    drawScene(ctx, opts({ points: [{ x: 0, y: 0 }] }), 1)
+    expect(ctx.drawImage).not.toHaveBeenCalled()
+  })
+
+  it('draws backdrop + clipped image when preview mode has a full mask', () => {
+    const ctx = mockCtx()
+    drawScene(ctx, opts(), 1, true)
+    expect(ctx.drawImage).toHaveBeenCalledTimes(2)
+    expect(ctx.clip).toHaveBeenCalledOnce()
+  })
 })
 
 describe('buildSvg', () => {

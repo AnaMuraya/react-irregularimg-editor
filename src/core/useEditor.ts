@@ -117,7 +117,7 @@ export function useEditor(opts: UseEditorOptions) {
     canvas.style.width = width + 'px'
     canvas.style.height = height + 'px'
     const ctx = canvas.getContext('2d')
-    if (ctx) drawScene(ctx, sceneOpts, dpr)
+    if (ctx) drawScene(ctx, sceneOpts, dpr, true)
   }, [sceneOpts, width, height])
 
   // Notify listeners of state changes.

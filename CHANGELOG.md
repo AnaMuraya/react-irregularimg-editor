@@ -6,7 +6,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-_Nothing yet._
+### Changed
+
+- The editor now shows the source image **dimmed behind the mask** while
+  cropping, so you can see what you are selecting even before the outline is
+  complete. The exported PNG/SVG is unaffected — it still contains only the
+  masked region.
 
 ## [0.2.0] — 2026-07-04
 
