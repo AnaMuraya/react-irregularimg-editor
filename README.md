@@ -1,9 +1,15 @@
 # react-irregularimg-editor
 
+[![npm version](https://img.shields.io/npm/v/react-irregularimg-editor.svg)](https://www.npmjs.com/package/react-irregularimg-editor)
+[![CI](https://github.com/AnaMuraya/custom-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/AnaMuraya/custom-demo/actions/workflows/ci.yml)
+[![minzip](https://img.shields.io/bundlephobia/minzip/react-irregularimg-editor)](https://bundlephobia.com/package/react-irregularimg-editor)
+[![types](https://img.shields.io/npm/types/react-irregularimg-editor.svg)](https://www.npmjs.com/package/react-irregularimg-editor)
+[![license](https://img.shields.io/npm/l/react-irregularimg-editor.svg)](./LICENSE)
+
 A React + TypeScript component for cropping and masking images into **irregular
 shapes**. Draw a freeform outline, click a polygon, or pick a preset shape;
 rotate/zoom/reposition the image inside the mask; then export a transparent PNG
-or a standalone SVG.
+or a standalone SVG. **Typed, tested, tree-shakeable, and works in Next.js.**
 
 - 🎯 **Freeform & polygon cropping** — click to place polygon points (drag to
   move, double-click to remove) or press-and-drag to draw a freehand outline.
@@ -16,7 +22,14 @@ or a standalone SVG.
   editor (`/freehand`, `/polygon`, `/preset`) so unused features tree-shake away.
 - 🎨 **Beautiful & fully themeable** — polished light/dark styles out of the box,
   overridable via CSS variables, class names, or inline styles.
-- ✅ Zero runtime dependencies (React is a peer dependency). Ships with types.
+- ♿ **Accessible** — keyboard-operable mask handles with ARIA labelling.
+- ⚡ **Ships right** — dual ESM + CJS builds, generated `.d.ts`, `"use client"`
+  for the Next.js App Router, `sideEffects: false`, zero runtime dependencies.
+
+> **Compatibility:** React 18 and 19 (peer dependency `>=18`). Works in the
+> Next.js App Router — every entry is marked `"use client"` and all
+> `window`/`document`/`canvas` access is guarded to client-side effects, so it
+> is safe to render from a Server Component.
 
 ## Installation
 
@@ -279,20 +292,54 @@ import { useEditor, EditorFrame, makeParts } from 'react-irregularimg-editor/cor
 and export; `EditorFrame` renders the canvas + interactive overlay. Also
 exported: `drawScene`, `exportScene`, `buildSvg`, `presetPoints`, `pointsToPath`.
 
-## Notes on cross-origin images
+## Accessibility
+
+- Polygon mask vertices are **focusable** (`role="button"`, `tabIndex=0`) with a
+  descriptive `aria-label`. When focused, **arrow keys** nudge the point (hold
+  **Shift** for a larger step) and **Delete/Backspace** removes it — no mouse
+  required to fine-tune a mask.
+- Toolbar controls are native `<button>`, `<select>` and range `<input>`
+  elements; mode/toggle buttons expose `aria-pressed`.
+- The rendered canvas is `aria-hidden` (it is a visual projection of the
+  editable mask), and the frame is labelled as an editing region.
+
+Freehand drawing is inherently pointer-based; use polygon or preset mode for a
+fully keyboard-driven workflow.
+
+## Cross-origin images
 
 Exporting reads pixels back from a canvas. If the image comes from a different
 origin, set `crossOrigin="anonymous"` **and** make sure the host serves
 `Access-Control-Allow-Origin`. Otherwise the canvas is "tainted" and export
 throws. Same-origin, blob, and data URLs always work.
 
+## Scope — what it deliberately does *not* do
+
+Kept intentionally small and focused on masking-to-shape:
+
+- **No filters, paint, text, or layers.** It crops/masks and adjusts placement;
+  it is not a Photoshop-in-the-browser.
+- **No bitmap resampling/quality settings** beyond `exportScale`. Output matches
+  the on-screen preview at the requested pixel ratio.
+- **No built-in cloud upload or persistence.** You get a `Blob`/data URL/SVG from
+  `onExport`/the imperative handle and wire up storage yourself.
+- **No bézier/curved mask segments** — masks are polylines (freehand, polygon) or
+  generated preset outlines. Freehand editing is pointer-only.
+- **No image loading UI** (spinners, drag-and-drop). `src` is a plain image
+  source; bring your own uploader (see [Loading the user's own image](#loading-the-users-own-image)).
+
 ## Development
 
 ```bash
 npm install      # install dev dependencies
-npm run build    # compile TypeScript to dist/
-npm test         # run the vitest suite
+npm run build    # dual ESM + CJS build via tsup (dist/*.js, *.mjs, *.d.ts)
+npm run typecheck # tsc --noEmit
+npm run lint     # eslint
+npm test         # vitest (unit + component + SSR)
 ```
+
+CI runs typecheck + lint + test + build on every push and PR
+([workflow](./.github/workflows/ci.yml)).
 
 There is a runnable example under [`demo/`](./demo) with image upload and a
 theme switch. Bundle and serve it with:
