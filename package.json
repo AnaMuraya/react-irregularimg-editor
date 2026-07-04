@@ -1,8 +1,9 @@
 {
-  "name": "@a.muraya/custom-demo",
-  "version": "1.0.4",
-  "description": "This is a demo react typescript npm module.",
+  "name": "react-irregularimg-editor",
+  "version": "0.2.0",
+  "description": "A React + TypeScript component for cropping and masking images into irregular shapes — freeform/polygon crop, preset shape masks, rotate/zoom/reposition adjustments, and PNG/SVG export.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -10,11 +11,30 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./freehand": {
+      "types": "./dist/freehand.d.ts",
+      "default": "./dist/freehand.js"
+    },
+    "./polygon": {
+      "types": "./dist/polygon.d.ts",
+      "default": "./dist/polygon.js"
+    },
+    "./preset": {
+      "types": "./dist/preset.d.ts",
+      "default": "./dist/preset.js"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "default": "./dist/core.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
-    "test": "echo \\\"Error: no test specified\\\" && exit 1",
-    "build": "tsc"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,10 +43,17 @@
   "keywords": [
     "react",
     "typescript",
+    "image",
+    "editor",
+    "crop",
+    "mask",
+    "irregular",
+    "polygon",
+    "freeform",
+    "clip",
+    "canvas",
     "components",
-    "ui",
-    "npm",
-    "package"
+    "ui"
   ],
   "author": "A.M",
   "license": "ISC",
@@ -34,12 +61,19 @@
     "url": "https://github.com/AnaMuraya/custom-demo/issues"
   },
   "homepage": "https://github.com/AnaMuraya/custom-demo#readme",
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/react": "^18.3.3",
-    "typescript": "^5.5.3"
+    "@types/react-dom": "^18.3.0",
+    "jsdom": "^24.1.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.5.3",
+    "vitest": "^2.1.9"
   }
 }
