@@ -14,7 +14,9 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   target: 'es2019',
   dts: true,
-  sourcemap: true,
+  // No sourcemaps in the published bundle: they map to the bundled output (not
+  // the original src, which isn't shipped), so they add weight for little value.
+  sourcemap: false,
   clean: true,
   treeshake: true,
   // Keep each entry self-contained so chunks aren't hoisted apart.
