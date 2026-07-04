@@ -1,3 +1,5 @@
+'use client'
+
 import React, { forwardRef, useImperativeHandle } from 'react'
 import { makeParts } from '../theme'
 import { IrregularImageEditorHandle, PresetShape } from '../types'
