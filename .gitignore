@@ -2,3 +2,7 @@ node_modules
 dist
 build
 *.txt
+demo/bundle.js
+.playwright-mcp
+*.tgz
+.DS_Store
