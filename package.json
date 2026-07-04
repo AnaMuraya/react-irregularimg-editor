@@ -1,6 +1,6 @@
 {
   "name": "react-irregularimg-editor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A React + TypeScript component for cropping and masking images into irregular shapes — freeform/polygon crop, preset shape masks, rotate/zoom/reposition adjustments, and PNG/SVG export.",
   "type": "commonjs",
   "sideEffects": false,
