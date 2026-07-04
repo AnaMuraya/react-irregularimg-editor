@@ -6,12 +6,23 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Changed
+_Nothing yet._
+
+## [0.2.1] — 2026-07-04
+
+### Fixed
 
 - The editor now shows the source image **dimmed behind the mask** while
   cropping, so you can see what you are selecting even before the outline is
-  complete. The exported PNG/SVG is unaffected — it still contains only the
-  masked region.
+  complete (previously the frame was blank until a mask existed). The exported
+  PNG/SVG is unaffected — it still contains only the masked region.
+
+### Changed
+
+- Relicensed from ISC to **MIT** (the conventional license for React libraries;
+  functionally equivalent permissiveness).
+- Simpler publish surface: a plain `files: ["dist"]` allowlist and no sourcemaps
+  in the tarball (they mapped to the bundle, not the unshipped `src`).
 
 ## [0.2.0] — 2026-07-04
 
@@ -51,5 +62,6 @@ scaffold previously published as `0.1.1`).
 
 - Initial (unrelated) Create React App scaffold published under this name.
 
-[Unreleased]: https://github.com/AnaMuraya/react-irregularimg-editor/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/AnaMuraya/react-irregularimg-editor/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/AnaMuraya/react-irregularimg-editor/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/AnaMuraya/react-irregularimg-editor/releases/tag/v0.2.0
