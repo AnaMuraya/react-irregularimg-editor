@@ -52,6 +52,32 @@ describe('PolygonEditor', () => {
     render(<PolygonEditor ref={ref} src={SRC} />)
     expect(ref.current!.getState().mode).toBe('polygon')
   })
+
+  it('makes vertices keyboard-operable (move + delete)', () => {
+    const ref = createRef<IrregularImageEditorHandle>()
+    const { container } = render(<PolygonEditor ref={ref} src={SRC} />)
+    const overlay = container.querySelector('svg.irr-overlay') as SVGSVGElement
+    for (const [x, y] of [[10, 10], [90, 10], [90, 90], [10, 90]]) {
+      fireEvent.pointerDown(overlay, { clientX: x, clientY: y, pointerId: 1 })
+    }
+    const handles = () => container.querySelectorAll('circle')
+    expect(handles()).toHaveLength(4)
+
+    // Handles are focusable buttons with an accessible name.
+    const first = handles()[0]
+    expect(first.getAttribute('tabindex')).toBe('0')
+    expect(first.getAttribute('role')).toBe('button')
+    expect(first.getAttribute('aria-label')).toMatch(/Mask point 1/)
+
+    // Arrow key nudges the point (shift = larger step).
+    const before = ref.current!.getState().points[0].x
+    fireEvent.keyDown(first, { key: 'ArrowRight', shiftKey: true })
+    expect(ref.current!.getState().points[0].x).toBe(before + 10)
+
+    // Delete removes a vertex (while more than 3 remain).
+    fireEvent.keyDown(handles()[0], { key: 'Delete' })
+    expect(handles()).toHaveLength(3)
+  })
 })
 
 describe('PresetEditor', () => {
