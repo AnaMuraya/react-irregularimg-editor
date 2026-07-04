@@ -74,7 +74,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnaMuraya/custom-demo.git"
+    "url": "git+https://github.com/AnaMuraya/custom-npm-package.git"
   },
   "keywords": [
     "react",
@@ -94,9 +94,9 @@
   "author": "A.M",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AnaMuraya/custom-demo/issues"
+    "url": "https://github.com/AnaMuraya/custom-npm-package/issues"
   },
-  "homepage": "https://github.com/AnaMuraya/custom-demo#readme",
+  "homepage": "https://github.com/AnaMuraya/custom-npm-package#readme",
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"

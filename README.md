@@ -1,7 +1,7 @@
 # react-irregularimg-editor
 
 [![npm version](https://img.shields.io/npm/v/react-irregularimg-editor.svg)](https://www.npmjs.com/package/react-irregularimg-editor)
-[![CI](https://github.com/AnaMuraya/custom-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/AnaMuraya/custom-demo/actions/workflows/ci.yml)
+[![CI](https://github.com/AnaMuraya/custom-npm-package/actions/workflows/ci.yml/badge.svg)](https://github.com/AnaMuraya/custom-npm-package/actions/workflows/ci.yml)
 [![minzip](https://img.shields.io/bundlephobia/minzip/react-irregularimg-editor)](https://bundlephobia.com/package/react-irregularimg-editor)
 [![types](https://img.shields.io/npm/types/react-irregularimg-editor.svg)](https://www.npmjs.com/package/react-irregularimg-editor)
 [![license](https://img.shields.io/npm/l/react-irregularimg-editor.svg)](./LICENSE)
@@ -37,7 +37,7 @@ or a standalone SVG. **Typed, tested, tree-shakeable, and works in Next.js.**
 npm install react-irregularimg-editor
 ```
 
-React 17+ and `react-dom` are peer dependencies.
+`react` and `react-dom` `>=18` are peer dependencies (React 18 and 19).
 
 ## Quick start
 

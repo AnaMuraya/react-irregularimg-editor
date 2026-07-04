@@ -44,5 +44,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Initial (unrelated) Create React App scaffold published under this name.
 
-[Unreleased]: https://github.com/AnaMuraya/custom-demo/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/AnaMuraya/custom-demo/releases/tag/v0.2.0
+[Unreleased]: https://github.com/AnaMuraya/custom-npm-package/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/AnaMuraya/custom-npm-package/releases/tag/v0.2.0
