@@ -69,12 +69,13 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "build": "tsup",
+    "build:demo": "esbuild demo/main.tsx --bundle --outfile=demo/bundle.js --jsx=automatic --loader:.tsx=tsx --minify",
     "prepublishOnly": "npm run build",
     "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnaMuraya/custom-npm-package.git"
+    "url": "git+https://github.com/AnaMuraya/react-irregularimg-editor.git"
   },
   "keywords": [
     "react",
@@ -94,9 +95,9 @@
   "author": "A.M",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AnaMuraya/custom-npm-package/issues"
+    "url": "https://github.com/AnaMuraya/react-irregularimg-editor/issues"
   },
-  "homepage": "https://github.com/AnaMuraya/custom-npm-package#readme",
+  "homepage": "https://github.com/AnaMuraya/react-irregularimg-editor#readme",
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
@@ -107,6 +108,7 @@
     "@testing-library/react": "^16.3.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.23.1",
     "eslint": "^9.39.4",
     "jsdom": "^24.1.3",
     "react": "^18.3.1",

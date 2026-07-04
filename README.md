@@ -1,10 +1,13 @@
 # react-irregularimg-editor
 
 [![npm version](https://img.shields.io/npm/v/react-irregularimg-editor.svg)](https://www.npmjs.com/package/react-irregularimg-editor)
-[![CI](https://github.com/AnaMuraya/custom-npm-package/actions/workflows/ci.yml/badge.svg)](https://github.com/AnaMuraya/custom-npm-package/actions/workflows/ci.yml)
+[![CI](https://github.com/AnaMuraya/react-irregularimg-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/AnaMuraya/react-irregularimg-editor/actions/workflows/ci.yml)
 [![minzip](https://img.shields.io/bundlephobia/minzip/react-irregularimg-editor)](https://bundlephobia.com/package/react-irregularimg-editor)
 [![types](https://img.shields.io/npm/types/react-irregularimg-editor.svg)](https://www.npmjs.com/package/react-irregularimg-editor)
 [![license](https://img.shields.io/npm/l/react-irregularimg-editor.svg)](./LICENSE)
+[![live demo](https://img.shields.io/badge/demo-live-6366f1)](https://anamuraya.github.io/react-irregularimg-editor/)
+
+**▶ [Live demo](https://anamuraya.github.io/react-irregularimg-editor/)** — upload your own image, try every mode, switch themes.
 
 A React + TypeScript component for cropping and masking images into **irregular
 shapes**. Draw a freeform outline, click a polygon, or pick a preset shape;
@@ -341,12 +344,14 @@ npm test         # vitest (unit + component + SSR)
 CI runs typecheck + lint + test + build on every push and PR
 ([workflow](./.github/workflows/ci.yml)).
 
-There is a runnable example under [`demo/`](./demo) with image upload and a
-theme switch. Bundle and serve it with:
+The [`demo/`](./demo) app (image upload + theme switch) is deployed to GitHub
+Pages on every push to `main` — see the
+**[live demo](https://anamuraya.github.io/react-irregularimg-editor/)**. To run
+it locally:
 
 ```bash
-npx esbuild demo/main.tsx --bundle --outfile=demo/bundle.js --jsx=automatic
-python3 -m http.server 8752 --directory demo   # then open http://localhost:8752
+npm run build:demo                              # bundle demo/main.tsx -> demo/bundle.js
+python3 -m http.server 8752 --directory demo    # then open http://localhost:8752
 ```
 
 ## License
