@@ -4,6 +4,7 @@ import {
   IrregularImageEditor,
   IrregularImageEditorHandle,
   EditorTheme,
+  ExportResult,
 } from '../src'
 
 function makeTestImage(): string {
@@ -29,7 +30,7 @@ function App() {
   const [theme, setTheme] = useState<EditorTheme>('light')
   const objectUrl = useRef<string | null>(null)
   const editor = useRef<IrregularImageEditorHandle>(null)
-  const [status, setStatus] = useState('')
+  const [exported, setExported] = useState<ExportResult | null>(null)
 
   useEffect(() => setSrc(makeTestImage()), [])
 
@@ -39,6 +40,7 @@ function App() {
     if (objectUrl.current) URL.revokeObjectURL(objectUrl.current)
     const url = URL.createObjectURL(file)
     objectUrl.current = url
+    setExported(null) // clear any previous export when a new image loads
     setSrc(url)
   }
 
@@ -86,22 +88,39 @@ function App() {
           id="verify-export"
           onClick={async () => {
             const r = await editor.current!.export()
-            setStatus(
-              `EXPORT_OK ${r.width}x${r.height} blob=${r.blob.size} svg=${r.svg.length}`
-            )
-            const preview = document.getElementById('preview') as HTMLImageElement
-            preview.src = r.dataUrl
+            setExported(r)
           }}
         >
-          Export & preview
+          Export &amp; preview
         </button>
-        <span id="status" style={{ marginLeft: 12 }}>{status}</span>
+        {exported && (
+          <span id="status" style={{ marginLeft: 12 }}>
+            EXPORT_OK {exported.width}x{exported.height} blob={exported.blob.size}{' '}
+            svg={exported.svg.length}
+          </span>
+        )}
       </div>
-      <img
-        id="preview"
-        alt="export preview"
-        style={{ marginTop: 16, maxWidth: 500, background: '#ddd' }}
-      />
+
+      {/* Only render the preview once there is something to show. */}
+      {exported && (
+        <div style={{ marginTop: 16 }}>
+          <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 6 }}>
+            Exported crop (transparent PNG):
+          </div>
+          <img
+            id="preview"
+            src={exported.dataUrl}
+            alt="Exported crop"
+            style={{
+              maxWidth: 500,
+              backgroundImage:
+                'linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(-45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%),linear-gradient(-45deg,transparent 75%,#ccc 75%)',
+              backgroundSize: '16px 16px',
+              backgroundPosition: '0 0,0 8px,8px -8px,-8px 0',
+            }}
+          />
+        </div>
+      )}
     </div>
   )
 }
